@@ -47,11 +47,6 @@ func (k Keeper) CreateGame(ctx sdk.Context, msg types.MsgCreateGame) {
 		Cols:       msg.Cols,
 		Strike:     msg.Strike,
 		Reward:     msg.Reward,
-		GameState:  msg.GameState,
-		Guest:      msg.Guest,
-		Oplayer:    msg.Oplayer,
-		Xplayer:    msg.Xplayer,
-		NextPlayer: msg.NextPlayer,
 	}
 
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.GameKey))
@@ -87,12 +82,6 @@ func (k Keeper) HasGame(ctx sdk.Context, id string) bool {
 // GetGameOwner returns the creator of the game
 func (k Keeper) GetGameOwner(ctx sdk.Context, key string) string {
 	return k.GetGame(ctx, key).Creator
-}
-
-// DeleteGame deletes a game
-func (k Keeper) DeleteGame(ctx sdk.Context, key string) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.GameKey))
-	store.Delete(types.KeyPrefix(types.GameKey + key))
 }
 
 // GetAllGame returns all game

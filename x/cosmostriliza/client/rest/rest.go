@@ -29,7 +29,5 @@ func registerQueryRoutes(clientCtx client.Context, r *mux.Router) {
 func registerTxHandlers(clientCtx client.Context, r *mux.Router) {
 	// this line is used by starport scaffolding # 4
 	r.HandleFunc("/cosmostriliza/games", createGameHandler(clientCtx)).Methods("POST")
-	r.HandleFunc("/cosmostriliza/games/{id}", updateGameHandler(clientCtx)).Methods("POST")
-	r.HandleFunc("/cosmostriliza/games/{id}", deleteGameHandler(clientCtx)).Methods("POST")
 
 }

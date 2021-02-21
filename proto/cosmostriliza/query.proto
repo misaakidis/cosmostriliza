@@ -4,12 +4,36 @@ package misaakidis.cosmostriliza.cosmostriliza;
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 // this line is used by starport scaffolding # 1
+import "cosmostriliza/game.proto";
 
 option go_package = "github.com/misaakidis/cosmos-triliza/x/cosmostriliza/types";
 
 // Query defines the gRPC querier service.
 service Query {
     // this line is used by starport scaffolding # 2
+	rpc Game(QueryGetGameRequest) returns (QueryGetGameResponse) {
+		option (google.api.http).get = "/misaakidis/cosmostriliza/cosmostriliza/game/{id}";
+	}
+	rpc GameAll(QueryAllGameRequest) returns (QueryAllGameResponse) {
+		option (google.api.http).get = "/misaakidis/cosmostriliza/cosmostriliza/game";
+	}
+
 }
 
 // this line is used by starport scaffolding # 3
+message QueryGetGameRequest {
+	string id = 1;
+}
+
+message QueryGetGameResponse {
+	Game Game = 1;
+}
+
+message QueryAllGameRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllGameResponse {
+	repeated Game Game = 1;
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}

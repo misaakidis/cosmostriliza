@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"strconv"
 	"github.com/spf13/cobra"
 
 	"github.com/cosmos/cosmos-sdk/client"
@@ -15,17 +16,17 @@ func CmdCreateGame() *cobra.Command {
 		Short: "Creates a new game",
 		Args:  cobra.ExactArgs(4),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			argsRows := string(args[0])
-			argsCols := string(args[1])
-			argsStrike := string(args[2])
-			argsReward := string(args[3])
+			argsRows, _ := strconv.ParseUint(args[0], 10, 32)
+			argsCols, _ := strconv.ParseUint(args[1], 10, 32)
+			argsStrike, _ := strconv.ParseUint(args[2], 10, 32)
+			argsReward, _ := strconv.ParseUint(args[3], 10, 32)
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
 			}
 
-			msg := types.NewMsgCreateGame(clientCtx.GetFromAddress().String(), string(argsRows), string(argsCols), string(argsStrike), string(argsReward))
+			msg := types.NewMsgCreateGame(clientCtx.GetFromAddress().String(), uint32(argsRows), uint32(argsCols), uint32(argsStrike), uint32(argsReward))
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}

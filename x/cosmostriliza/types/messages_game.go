@@ -7,7 +7,7 @@ import (
 
 var _ sdk.Msg = &MsgCreateGame{}
 
-func NewMsgCreateGame(creator string, rows string, cols string, strike string, reward string) *MsgCreateGame {
+func NewMsgCreateGame(creator string, rows uint32, cols uint32, strike uint32, reward uint32) *MsgCreateGame {
 	return &MsgCreateGame{
 		Creator:    creator,
 		Rows:       rows,

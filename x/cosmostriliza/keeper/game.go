@@ -40,13 +40,21 @@ func (k Keeper) SetGameCount(ctx sdk.Context, count int64) {
 func (k Keeper) CreateGame(ctx sdk.Context, msg types.MsgCreateGame) {
 	// Create the game
 	count := k.GetGameCount(ctx)
+
 	var game = types.Game{
-		Creator:    msg.Creator,
-		Id:         strconv.FormatInt(count, 10),
-		Rows:       msg.Rows,
-		Cols:       msg.Cols,
-		Strike:     msg.Strike,
-		Reward:     msg.Reward,
+		Creator:		msg.Creator,
+		Id:					strconv.FormatInt(count, 10),
+		Rows: 			msg.Rows,
+		Cols: 			msg.Cols,
+		Strike: 		msg.Strike,
+		Reward: 		msg.Reward,
+		// Set game status to OPEN
+		GameState:	types.GameState_OPEN,
+		// Initialize board and number of moves
+		Board: 			make([]types.Mark, msg.Rows * msg.Cols),
+		NumOfMoves:	0,
+		// Default first player with X mark
+		NextMark: 	types.Mark_XPLAYER,
 	}
 
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.GameKey))

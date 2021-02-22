@@ -14,20 +14,21 @@ enum GameState {
 }
 
 enum Mark {
-  XPlayer = 0;
-  OPlayer = 1;
+  EMPTY = 0;
+  XPLAYER = 1;
+  OPLAYER = 2;
 }
 
 message Game {
   string creator = 1;
   string id = 2;
-  string rows = 3;
-  string cols = 4;
-  string strike = 5;
-  string reward = 6;
+  uint32 rows = 3;
+  uint32 cols = 4;
+  uint32 strike = 5;
+  uint32 reward = 6;
   GameState gameState = 7;
-  repeated int32 board = 8;
-  int32 numOfMoves = 9;
+  repeated Mark board = 8;
+  uint32 numOfMoves = 9;
   string guest = 10;
   Mark creatorMark = 11;
   Mark guestMark = 12;
@@ -36,10 +37,10 @@ message Game {
 
 message MsgCreateGame {
   string creator = 1;
-  string rows = 2;
-  string cols = 3;
-  string strike = 4;
-  string reward = 5;
+  uint32 rows = 2;
+  uint32 cols = 3;
+  uint32 strike = 4;
+  uint32 reward = 5;
 }
 
 message MsgCommitMove {

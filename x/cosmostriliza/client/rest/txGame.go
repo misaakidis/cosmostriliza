@@ -42,20 +42,17 @@ func createGameHandler(clientCtx client.Context) http.HandlerFunc {
 			return
 		}
 
-		parsedRows := req.Rows
-
-		parsedCols := req.Cols
-
-		parsedStrike := req.Strike
-
-		parsedReward := req.Reward
+		parsedRows, _ := strconv.ParseUint(req.Rows, 10, 32)
+		parsedCols, _ := strconv.ParseUint(req.Cols, 10, 32)
+		parsedStrike, _ := strconv.ParseUint(req.Strike, 10, 32)
+		parsedReward, _ := strconv.ParseUint(req.Reward, 10, 32)
 
 		msg := types.NewMsgCreateGame(
 			req.Creator,
-			parsedRows,
-			parsedCols,
-			parsedStrike,
-			parsedReward,
+			uint32(parsedRows),
+			uint32(parsedCols),
+			uint32(parsedStrike),
+			uint32(parsedReward),
 		)
 
 		tx.WriteGeneratedTxResponse(clientCtx, w, req.BaseReq, msg)

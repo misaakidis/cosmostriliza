@@ -8,12 +8,6 @@ import (
 var _ sdk.Msg = &MsgCreateGame{}
 
 func NewMsgCreateGame(creator string, rows uint32, cols uint32, strike uint32, reward uint32) *MsgCreateGame {
-	// Check rows > 3
-	// Check cols > 3
-	// Check strike > 3 && (<=rows || <= cols)
-
-	// Lock reward
-
 	return &MsgCreateGame{
 		Creator:    creator,
 		Rows:       rows,
@@ -50,7 +44,11 @@ func (msg *MsgCreateGame) ValidateBasic() error {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
 
-	// Check ErrInsufficientFunds
+	// Check rows > 3
+	// Check cols > 3
+	// Check strike > 3 && (<=rows || <= cols)
+
+	// Check reward >= 0
 
 	return nil
 }

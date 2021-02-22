@@ -43,6 +43,11 @@ message MsgCreateGame {
   uint32 reward = 5;
 }
 
+message MsgJoinGame {
+  string guest = 1;
+  string id = 2;
+}
+
 message MsgCommitMove {
   Mark player = 1;
   int32 row = 2;

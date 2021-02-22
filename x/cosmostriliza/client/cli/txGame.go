@@ -38,3 +38,30 @@ func CmdCreateGame() *cobra.Command {
 
 	return cmd
 }
+
+
+func CmdJoinGame() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "join-game [id]",
+		Short: "Joins an existing game with the given id",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			argsId := string(args[0])
+
+			clientCtx, err := client.GetClientTxContext(cmd)
+			if err != nil {
+				return err
+			}
+
+			msg := types.NewMsgJoinGame(clientCtx.GetFromAddress().String(), argsId)
+			if err := msg.ValidateBasic(); err != nil {
+				return err
+			}
+			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msg)
+		},
+	}
+
+	flags.AddTxFlagsToCmd(cmd)
+
+	return cmd
+}

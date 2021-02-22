@@ -66,6 +66,12 @@ func (k Keeper) CreateGame(ctx sdk.Context, msg types.MsgCreateGame) {
 	k.SetGameCount(ctx, count+1)
 }
 
+// JoinGame joins a game with a given id
+func (k Keeper) JoinGame(ctx sdk.Context, msg types.MsgJoinGame) {
+
+	// game := k.GetGame(ctx, msg.Id)
+}
+
 // SetGame set a specific game in the store
 func (k Keeper) SetGame(ctx sdk.Context, game types.Game) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.GameKey))

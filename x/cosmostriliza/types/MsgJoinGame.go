@@ -9,8 +9,8 @@ var _ sdk.Msg = &MsgJoinGame{}
 
 func NewMsgJoinGame(guest string, id string) *MsgJoinGame {
 	return &MsgJoinGame{
-		Guest:  guest,
-		Id:     id,
+		Guest: 	guest,
+		GameId:	id,
 	}
 }
 

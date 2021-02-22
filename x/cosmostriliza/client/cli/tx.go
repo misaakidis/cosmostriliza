@@ -24,6 +24,7 @@ func GetTxCmd() *cobra.Command {
 
 	cmd.AddCommand(CmdCreateGame())
 	cmd.AddCommand(CmdJoinGame())
+	cmd.AddCommand(CmdCommitMove())
 
 	return cmd
 }

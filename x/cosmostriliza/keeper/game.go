@@ -72,6 +72,12 @@ func (k Keeper) JoinGame(ctx sdk.Context, msg types.MsgJoinGame) {
 	// game := k.GetGame(ctx, msg.Id)
 }
 
+// CommitMove places a mark in a game with a given id
+func (k Keeper) CommitMove(ctx sdk.Context, msg types.MsgCommitMove) {
+
+	// game := k.GetGame(ctx, msg.Id)
+}
+
 // SetGame set a specific game in the store
 func (k Keeper) SetGame(ctx sdk.Context, game types.Game) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.GameKey))

@@ -39,7 +39,6 @@ func CmdCreateGame() *cobra.Command {
 	return cmd
 }
 
-
 func CmdJoinGame() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "join-game [id]",
@@ -54,6 +53,34 @@ func CmdJoinGame() *cobra.Command {
 			}
 
 			msg := types.NewMsgJoinGame(clientCtx.GetFromAddress().String(), argsId)
+			if err := msg.ValidateBasic(); err != nil {
+				return err
+			}
+			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msg)
+		},
+	}
+
+	flags.AddTxFlagsToCmd(cmd)
+
+	return cmd
+}
+
+func CmdCommitMove() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "commit-move [id] [row] [column]",
+		Short: "Place mark on [row, column] in an existing game with the given id",
+		Args:  cobra.ExactArgs(3),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			argsId := string(args[0])
+			argsRow, _ := strconv.ParseUint(args[1], 10, 32)
+			argsCol, _ := strconv.ParseUint(args[2], 10, 32)
+
+			clientCtx, err := client.GetClientTxContext(cmd)
+			if err != nil {
+				return err
+			}
+
+			msg := types.NewMsgCommitMove(clientCtx.GetFromAddress().String(), argsId, uint32(argsRow), uint32(argsCol))
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}

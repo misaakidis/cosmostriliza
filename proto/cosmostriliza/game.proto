@@ -45,11 +45,12 @@ message MsgCreateGame {
 
 message MsgJoinGame {
   string guest = 1;
-  string id = 2;
+  string gameId = 2;
 }
 
 message MsgCommitMove {
-  Mark player = 1;
-  int32 row = 2;
-  int32 col = 3;
+  string player = 1;
+  string gameId = 2;
+  uint32 row = 3;
+  uint32 col = 4;
 }

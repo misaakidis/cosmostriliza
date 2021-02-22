@@ -14,11 +14,18 @@ func handleMsgCreateGame(ctx sdk.Context, k keeper.Keeper, msg *types.MsgCreateG
 	return &sdk.Result{Events: ctx.EventManager().ABCIEvents()}, nil
 }
 
-
 func handleMsgJoinGame(ctx sdk.Context, k keeper.Keeper, msg *types.MsgJoinGame) (*sdk.Result, error) {
 	//TODO Validate parameters
 
 	k.JoinGame(ctx, *msg)
+
+	return &sdk.Result{Events: ctx.EventManager().ABCIEvents()}, nil
+}
+
+func handleMsgCommitMove(ctx sdk.Context, k keeper.Keeper, msg *types.MsgCommitMove) (*sdk.Result, error) {
+	//TODO Validate parameters
+
+	k.CommitMove(ctx, *msg)
 
 	return &sdk.Result{Events: ctx.EventManager().ABCIEvents()}, nil
 }

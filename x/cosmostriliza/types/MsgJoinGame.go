@@ -8,6 +8,18 @@ import (
 var _ sdk.Msg = &MsgJoinGame{}
 
 func NewMsgJoinGame(guest string, id string) *MsgJoinGame {
+	// Check if gameId exists and is OPEN
+
+	// Determine who will be X (the first player)
+
+	// Set game fields: guest, creatorMark, guestMark
+
+	// Set gameState to ONGOING
+
+	// Store updated game
+
+	// Lock reward
+
 	return &MsgJoinGame{
 		Guest: 	guest,
 		GameId:	id,
@@ -40,5 +52,8 @@ func (msg *MsgJoinGame) ValidateBasic() error {
 	if err != nil {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
+
+	// Check ErrInsufficientFunds
+
 	return nil
 }

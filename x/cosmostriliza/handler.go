@@ -23,6 +23,11 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 		case *types.MsgCommitMove:
 			return handleMsgCommitMove(ctx, k, msg)
 
+		/* TODO Close games (i) that have not yet started, or (ii) that are idle for over 10 days.
+		   Transfer reward to (i) the host / (ii) the opponent of the player who abandoned the game.
+		 	 This is to avoid locking the reward (e.g. by players who are about to lose).
+		 */
+
 		default:
 			errMsg := fmt.Sprintf("unrecognized %s message type: %T", types.ModuleName, msg)
 			return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, errMsg)
